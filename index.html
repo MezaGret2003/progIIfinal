@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECNOVAFSA</title>
+    <link rel="shortcut icon" href="imagenes/favicontec.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script>
+            $(document).ready(function() {
+               $("#login-form").submit(function(event) {
+                  event.preventDefault();
+                  var username = $("#username").val();
+                  var password = $("#password").val();
+
+                 //alert("usuario: "+username+" Contraseña: "+password);
+
+                 $.ajax({
+                     type: "POST",
+                     url: "login.php",
+                      data: { 
+                         username: username,
+                         password: password 
+                        },
+                        success: function (response) {
+                        console.log(response)
+                        if (response === "success") {
+                            $("#mensajeSuccess").html("Inicio de Sesion Exitoso");
+                            $("#mensajeSuccess").show(); // Mostrar mensaje de éxito
+                            $("#mensajeError").hide();  // Ocultar mensaje de error
+                            window.location.href="home.html";
+                        } else {
+                            $("#mensajeError").html("Usuario o contrasena incorrectos.");
+                            $("#mensajeError").show(); // Mostrar mensaje de error
+                            $("#mensajeSuccess").hide();  // Ocultar mensaje de exito
+                        }
+                    }
+               });
+           });
+        });
+   </script>
+</head>
+<body class="bg-success d-flex justify-content-center align-items-center vh-100">
+  <div class="bg-white p-5 rounded-5" style="width: 25rem;">
+     <div class="d-flex justify-content-center">
+        <img
+         src="imagenes/favicontec.png" alt="login_icon" style="height: 7rem;" />
+     </div>
+     <div class="text-center fs-3 fw-bold">Iniciar Sesi&oacute;n</div>
+     <form id="login-form">
+          <div class="form-group">
+             <label for="username">Usuario:</label>
+             <input type="text" id="username" name="username" class="form-control" required>
+          </div>
+        
+         <div class="form-group">
+             <label for="password">Contrase&ntilde;a:</label>
+             <input type="password" id="password" name="password" class="form-control" required>
+         </div>
+          <br>
+         <input type="submit" value="Iniciar Sesi&oacute;n" class="btn btn-primary w-100 fw-semibold shadow-sm">
+     </form>
+     <div>
+         <div class="d-flex justify-content-around mt-1">
+              <div class="d-flex align-items-center gap-1">
+                 <input class="form-check-input" type="checkbox"/>
+                 <div class="pt-1" style="font-size: 0.9rem;">Recuerdame</div>
+             </div>
+             <div class="pt-1">
+                 <a href="#" class="text-decoration-none fw-semibold fst-italic" style="font-size: 0.9rem;">Olvid&eacute; mi contrase&ntilde;a</a>
+             </div>
+         </div>
+          <div class="d-flex gap-1 justify-content-center mt-1">
+             <div>¿No tienes cuenta?</div>
+             <a href="registro.php" class="text-decoration-none fw-semibold">Registrate</a>
+          </div>
+         <div class="p-3">
+             <div class="border-bottom border-secondary text-center" style="height: 0.9rem;">
+                <span class="bg-white px-3">O</span>
+             </div>
+         </div>
+         <div class="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
+             <img src="imagenes/googleicon.png" alt="google_icon" style="height: 1.6rem;">
+             <div class="fw-semibold">Continuar con Google</div>
+         </div>
+         
+    </div>
+  </div>
+</body>
+</html>
